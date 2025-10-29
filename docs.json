@@ -66,6 +66,13 @@
               "api-reference/endpoint/delete",
               "api-reference/endpoint/webhook"
             ]
+          },
+          {
+            "group": "Text",
+            "openapi": "/openapi.json",
+            "pages": [
+              "api-reference/text/summarize"
+            ]
           }
         ]
       }
