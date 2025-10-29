@@ -10,8 +10,8 @@
         }
     ],
     "paths": {
-        "/v1/text/summarize": {
-            "post": {
+        "/plants": {
+            "get": {
                 "tags": [
                     "Text"
                 ],
