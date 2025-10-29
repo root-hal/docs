@@ -59,19 +59,12 @@
             ]
           },
           {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          },
-          {
             "group": "Text",
-            "openapi": "/openapi.json",
             "pages": [
-              "api-reference/text/summarize"
+              "/openapi.json POST /v1/text/summarize",
+              "/openapi.json POST /v1/text/paraphrase", 
+              "/openapi.json POST /v1/text/correct",
+              "/openapi.json POST /v1/text/classify"
             ]
           }
         ]
