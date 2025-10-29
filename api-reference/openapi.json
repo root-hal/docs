@@ -1,21 +1,17 @@
 {
     "openapi": "3.1.0",
     "info": {
-        "title": "FastAPI",
-        "version": "0.1.0"
+        "title": "Loor AI API",
+        "version": "1.0.0"
     },
-    "servers": [
-        {
-            "url": "http://sandbox.mintlify.com"
-        }
-    ],
     "paths": {
-        "/plants": {
-            "get": {
+        "/v1/text/summarize": {
+            "post": {
                 "tags": [
                     "Text"
                 ],
-                "summary": "Summarize",
+                "summary": "Summarize Text",
+                "description": "Summarize the provided text content.\n\nTakes text input and returns a concise summary using the configured\nsummarization model.\n\n- **text**: The text content to summarize",
                 "operationId": "summarize_v1_text_summarize_post",
                 "requestBody": {
                     "content": {
@@ -32,19 +28,18 @@
                         "description": "Successful Response",
                         "content": {
                             "application/json": {
-                                "schema": {}
+                                "schema": {
+                                    "$ref": "#/components/schemas/src__routes__v1__text__schemas__SummarizeResponse"
+                                }
                             }
                         }
                     },
-                    "404": {
-                        "description": "Not found"
-                    },
-                    "422": {
-                        "description": "Validation Error",
+                    "4XX": {
+                        "description": "Error occurred while processing the request",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                    "$ref": "#/components/schemas/ErrorResponse"
                                 }
                             }
                         }
@@ -57,7 +52,8 @@
                 "tags": [
                     "Text"
                 ],
-                "summary": "Paraphrase",
+                "summary": "Paraphrase Text",
+                "description": "Paraphrase the provided text content.\n\nTakes text input and returns a reworded version that maintains the\noriginal meaning while using different words and sentence structure.\n\n- **text**: The text content to paraphrase\n- **tone**: The desired tone for the paraphrased text",
                 "operationId": "paraphrase_v1_text_paraphrase_post",
                 "requestBody": {
                     "content": {
@@ -74,19 +70,18 @@
                         "description": "Successful Response",
                         "content": {
                             "application/json": {
-                                "schema": {}
+                                "schema": {
+                                    "$ref": "#/components/schemas/ParaphraseResponse"
+                                }
                             }
                         }
                     },
-                    "404": {
-                        "description": "Not found"
-                    },
-                    "422": {
-                        "description": "Validation Error",
+                    "4XX": {
+                        "description": "Error occurred while processing the request",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                    "$ref": "#/components/schemas/ErrorResponse"
                                 }
                             }
                         }
@@ -99,7 +94,8 @@
                 "tags": [
                     "Text"
                 ],
-                "summary": "Correct",
+                "summary": "Correct Text",
+                "description": "Correct grammar and spelling errors in text.\n\nTakes text input and returns a corrected version with fixed grammar,\nspelling, and punctuation errors.\n\n- **text**: The text content to be corrected",
                 "operationId": "correct_v1_text_correct_post",
                 "requestBody": {
                     "content": {
@@ -116,19 +112,18 @@
                         "description": "Successful Response",
                         "content": {
                             "application/json": {
-                                "schema": {}
+                                "schema": {
+                                    "$ref": "#/components/schemas/CorrectResponse"
+                                }
                             }
                         }
                     },
-                    "404": {
-                        "description": "Not found"
-                    },
-                    "422": {
-                        "description": "Validation Error",
+                    "4XX": {
+                        "description": "Error occurred while processing the request",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                    "$ref": "#/components/schemas/ErrorResponse"
                                 }
                             }
                         }
@@ -141,7 +136,8 @@
                 "tags": [
                     "Text"
                 ],
-                "summary": "Classify",
+                "summary": "Classify Text",
+                "description": "Classify text into predefined categories.\n\nAnalyzes the provided text and assigns it to the most appropriate\ncategory with a confidence score.\n\n- **text**: The text content to classify\n- **categories**: List of possible categories to classify into",
                 "operationId": "classify_v1_text_classify_post",
                 "requestBody": {
                     "content": {
@@ -158,19 +154,18 @@
                         "description": "Successful Response",
                         "content": {
                             "application/json": {
-                                "schema": {}
+                                "schema": {
+                                    "$ref": "#/components/schemas/src__routes__v1__text__schemas__ClassifyResponse"
+                                }
                             }
                         }
                     },
-                    "404": {
-                        "description": "Not found"
-                    },
-                    "422": {
-                        "description": "Validation Error",
+                    "4XX": {
+                        "description": "Error occurred while processing the request",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                    "$ref": "#/components/schemas/ErrorResponse"
                                 }
                             }
                         }
@@ -183,7 +178,7 @@
                 "tags": [
                     "URL"
                 ],
-                "summary": "Summarize",
+                "summary": "Summarize URL",
                 "operationId": "summarize_v1_url_summarize_post",
                 "requestBody": {
                     "content": {
@@ -201,20 +196,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/SummarizeResponse"
+                                    "$ref": "#/components/schemas/src__routes__v1__url__schemas__SummarizeResponse"
                                 }
                             }
                         }
                     },
-                    "404": {
-                        "description": "Not found"
-                    },
-                    "422": {
-                        "description": "Validation Error",
+                    "4XX": {
+                        "description": "Error occurred while processing the request",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                    "$ref": "#/components/schemas/ErrorResponse"
                                 }
                             }
                         }
@@ -227,7 +219,7 @@
                 "tags": [
                     "URL"
                 ],
-                "summary": "Classify",
+                "summary": "Classify URL",
                 "operationId": "classify_v1_url_classify_post",
                 "requestBody": {
                     "content": {
@@ -244,19 +236,18 @@
                         "description": "Successful Response",
                         "content": {
                             "application/json": {
-                                "schema": {}
+                                "schema": {
+                                    "$ref": "#/components/schemas/src__routes__v1__url__schemas__ClassifyResponse"
+                                }
                             }
                         }
                     },
-                    "404": {
-                        "description": "Not found"
-                    },
-                    "422": {
-                        "description": "Validation Error",
+                    "4XX": {
+                        "description": "Error occurred while processing the request",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                    "$ref": "#/components/schemas/ErrorResponse"
                                 }
                             }
                         }
@@ -290,15 +281,12 @@
                             }
                         }
                     },
-                    "404": {
-                        "description": "Not found"
-                    },
-                    "422": {
-                        "description": "Validation Error",
+                    "4XX": {
+                        "description": "Error occurred while processing the request",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                    "$ref": "#/components/schemas/ErrorResponse"
                                 }
                             }
                         }
@@ -318,6 +306,16 @@
                                 "schema": {}
                             }
                         }
+                    },
+                    "4XX": {
+                        "description": "Error occurred while processing the request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -329,7 +327,9 @@
                 "properties": {
                     "text": {
                         "type": "string",
-                        "title": "Text"
+                        "title": "Text",
+                        "description": "The text content to be corrected",
+                        "example": "i cant beleive its raning again today, my picknick plans are ruined agian!"
                     }
                 },
                 "type": "object",
@@ -338,77 +338,98 @@
                 ],
                 "title": "CorrectRequest"
             },
-            "HTTPValidationError": {
+            "CorrectResponse": {
                 "properties": {
-                    "detail": {
-                        "items": {
-                            "$ref": "#/components/schemas/ValidationError"
-                        },
-                        "type": "array",
-                        "title": "Detail"
+                    "correction": {
+                        "type": "string",
+                        "title": "Correction",
+                        "description": "The corrected text with grammar and spelling fixes",
+                        "example": "..."
                     }
                 },
                 "type": "object",
-                "title": "HTTPValidationError"
+                "required": [
+                    "correction"
+                ],
+                "title": "CorrectResponse"
+            },
+            "ErrorResponse": {
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "title": "Type"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "title": "Status"
+                    },
+                    "title": {
+                        "type": "string",
+                        "title": "Title"
+                    },
+                    "detail": {
+                        "type": "string",
+                        "title": "Detail"
+                    },
+                    "instance": {
+                        "type": "string",
+                        "title": "Instance"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "type",
+                    "status",
+                    "title",
+                    "detail",
+                    "instance"
+                ],
+                "title": "ErrorResponse",
+                "description": "RFC 7807 Problem Details error response schema",
+                "example": {
+                    "detail": "Access forbidden or source unavailable.",
+                    "instance": "8428a19f-401e-47bc-b3f6-85f2bc3bed17",
+                    "status": 403,
+                    "title": "Source Not Available",
+                    "type": "https://loor.ai/v1/url/summarize"
+                }
             },
             "ParaphraseRequest": {
                 "properties": {
                     "text": {
                         "type": "string",
-                        "title": "Text"
+                        "title": "Text",
+                        "description": "The text content to be paraphrased",
+                        "example": "My grandmother makes the most delicious cookies in the entire universe and everyone agrees!"
+                    },
+                    "tone": {
+                        "type": "string",
+                        "title": "Tone",
+                        "description": "The desired tone for the paraphrased text (e.g., formal, casual, professional)",
+                        "example": "pirate"
                     }
                 },
                 "type": "object",
                 "required": [
-                    "text"
+                    "text",
+                    "tone"
                 ],
                 "title": "ParaphraseRequest"
             },
-            "SummarizeResponse": {
+            "ParaphraseResponse": {
                 "properties": {
-                    "output": {
+                    "paraphrase": {
                         "type": "string",
-                        "title": "Output"
+                        "title": "Paraphrase",
+                        "description": "The generated paraphrased text",
+                        "example": "Ahoy matey! That swift amber fox be leapin' over the sleepy hound whilst tossin' blazin' sticks in the air!"
                     }
                 },
                 "type": "object",
                 "required": [
-                    "output"
+                    "paraphrase"
                 ],
-                "title": "SummarizeResponse"
-            },
-            "ValidationError": {
-                "properties": {
-                    "loc": {
-                        "items": {
-                            "anyOf": [
-                                {
-                                    "type": "string"
-                                },
-                                {
-                                    "type": "integer"
-                                }
-                            ]
-                        },
-                        "type": "array",
-                        "title": "Location"
-                    },
-                    "msg": {
-                        "type": "string",
-                        "title": "Message"
-                    },
-                    "type": {
-                        "type": "string",
-                        "title": "Error Type"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "loc",
-                    "msg",
-                    "type"
-                ],
-                "title": "ValidationError"
+                "title": "ParaphraseResponse"
             },
             "src__routes__v1__pdf__schemas__SummarizeRequest": {
                 "properties": {
@@ -427,14 +448,22 @@
                 "properties": {
                     "text": {
                         "type": "string",
-                        "title": "Text"
+                        "title": "Text",
+                        "description": "The text content to be classified",
+                        "example": "This product exceeded my expectations! The quality is excellent and it arrived faster than expected. Highly recommend!"
                     },
                     "categories": {
                         "items": {
                             "type": "string"
                         },
                         "type": "array",
-                        "title": "Categories"
+                        "title": "Categories",
+                        "description": "List of categories to classify the text into",
+                        "example": [
+                            "positive",
+                            "negative",
+                            "neutral"
+                        ]
                     }
                 },
                 "type": "object",
@@ -444,11 +473,35 @@
                 ],
                 "title": "ClassifyRequest"
             },
+            "src__routes__v1__text__schemas__ClassifyResponse": {
+                "properties": {
+                    "category": {
+                        "type": "string",
+                        "title": "Category",
+                        "description": "The predicted category",
+                        "example": "positive"
+                    },
+                    "confidence": {
+                        "type": "number",
+                        "title": "Confidence",
+                        "description": "Confidence score for the prediction",
+                        "example": 0.97
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "category",
+                    "confidence"
+                ],
+                "title": "ClassifyResponse"
+            },
             "src__routes__v1__text__schemas__SummarizeRequest": {
                 "properties": {
                     "text": {
                         "type": "string",
-                        "title": "Text"
+                        "title": "Text",
+                        "description": "The text content to be summarized",
+                        "example": "Artificial intelligence has made remarkable progress in recent years, transforming industries from healthcare to finance. Machine learning algorithms can now analyze vast amounts of data to identify patterns and make predictions with unprecedented accuracy. However, as AI systems become more powerful, concerns about ethics, bias, and transparency have also grown. Researchers and policymakers are working together to develop frameworks that ensure AI is developed responsibly and benefits society as a whole."
                     }
                 },
                 "type": "object",
@@ -457,18 +510,46 @@
                 ],
                 "title": "SummarizeRequest"
             },
+            "src__routes__v1__text__schemas__SummarizeResponse": {
+                "properties": {
+                    "summary": {
+                        "type": "string",
+                        "title": "Summary",
+                        "description": "The generated summary",
+                        "example": "AI has advanced significantly, impacting multiple industries through improved data analysis and predictions, while raising important concerns about ethics and responsible development."
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "summary"
+                ],
+                "title": "SummarizeResponse"
+            },
             "src__routes__v1__url__schemas__ClassifyRequest": {
                 "properties": {
                     "url": {
                         "type": "string",
-                        "title": "Url"
+                        "title": "URL",
+                        "description": "The URL to classify content from",
+                        "examples": [
+                            "https://techcrunch.com/2024/01/15/ai-startup-news"
+                        ]
                     },
                     "categories": {
                         "items": {
                             "type": "string"
                         },
                         "type": "array",
-                        "title": "Categories"
+                        "title": "Categories",
+                        "description": "List of possible categories to classify into",
+                        "examples": [
+                            [
+                                "Technology",
+                                "Business",
+                                "Science",
+                                "Sports"
+                            ]
+                        ]
                     }
                 },
                 "type": "object",
@@ -477,6 +558,32 @@
                     "categories"
                 ],
                 "title": "ClassifyRequest"
+            },
+            "src__routes__v1__url__schemas__ClassifyResponse": {
+                "properties": {
+                    "category": {
+                        "type": "string",
+                        "title": "Category",
+                        "description": "The predicted category for the content",
+                        "examples": [
+                            "Technology"
+                        ]
+                    },
+                    "confidence": {
+                        "type": "number",
+                        "title": "Confidence",
+                        "description": "Confidence score for the classification (0.0 to 1.0)",
+                        "examples": [
+                            0.92
+                        ]
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "category",
+                    "confidence"
+                ],
+                "title": "ClassifyResponse"
             },
             "src__routes__v1__url__schemas__SummarizeRequest": {
                 "properties": {
@@ -494,6 +601,19 @@
                     "url"
                 ],
                 "title": "SummarizeRequest"
+            },
+            "src__routes__v1__url__schemas__SummarizeResponse": {
+                "properties": {
+                    "output": {
+                        "type": "string",
+                        "title": "Output"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "output"
+                ],
+                "title": "SummarizeResponse"
             }
         }
     }
