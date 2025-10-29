@@ -1,1 +1,500 @@
-{"openapi":"3.1.0","info":{"title":"FastAPI","version":"0.1.0"},"paths":{"/v1/text/summarize":{"post":{"tags":["Text"],"summary":"Summarize","operationId":"summarize_v1_text_summarize_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/src__routes__v1__text__schemas__SummarizeRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"404":{"description":"Not found"},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/v1/text/paraphrase":{"post":{"tags":["Text"],"summary":"Paraphrase","operationId":"paraphrase_v1_text_paraphrase_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ParaphraseRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"404":{"description":"Not found"},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/v1/text/correct":{"post":{"tags":["Text"],"summary":"Correct","operationId":"correct_v1_text_correct_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CorrectRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"404":{"description":"Not found"},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/v1/text/classify":{"post":{"tags":["Text"],"summary":"Classify","operationId":"classify_v1_text_classify_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/src__routes__v1__text__schemas__ClassifyRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"404":{"description":"Not found"},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/v1/url/summarize":{"post":{"tags":["URL"],"summary":"Summarize","operationId":"summarize_v1_url_summarize_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/src__routes__v1__url__schemas__SummarizeRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/SummarizeResponse"}}}},"404":{"description":"Not found"},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/v1/url/classify":{"post":{"tags":["URL"],"summary":"Classify","operationId":"classify_v1_url_classify_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/src__routes__v1__url__schemas__ClassifyRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"404":{"description":"Not found"},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/v1/pdf/summarize":{"post":{"tags":["PDF"],"summary":"Summarize PDF","operationId":"summarize_v1_pdf_summarize_post","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/src__routes__v1__pdf__schemas__SummarizeRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"404":{"description":"Not found"},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/":{"get":{"summary":"Root","operationId":"root__get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}}}}},"components":{"schemas":{"CorrectRequest":{"properties":{"text":{"type":"string","title":"Text"}},"type":"object","required":["text"],"title":"CorrectRequest"},"HTTPValidationError":{"properties":{"detail":{"items":{"$ref":"#/components/schemas/ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"},"ParaphraseRequest":{"properties":{"text":{"type":"string","title":"Text"}},"type":"object","required":["text"],"title":"ParaphraseRequest"},"SummarizeResponse":{"properties":{"output":{"type":"string","title":"Output"}},"type":"object","required":["output"],"title":"SummarizeResponse"},"ValidationError":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"src__routes__v1__pdf__schemas__SummarizeRequest":{"properties":{"file_url":{"type":"string","title":"File Url"}},"type":"object","required":["file_url"],"title":"SummarizeRequest"},"src__routes__v1__text__schemas__ClassifyRequest":{"properties":{"text":{"type":"string","title":"Text"},"categories":{"items":{"type":"string"},"type":"array","title":"Categories"}},"type":"object","required":["text","categories"],"title":"ClassifyRequest"},"src__routes__v1__text__schemas__SummarizeRequest":{"properties":{"text":{"type":"string","title":"Text"}},"type":"object","required":["text"],"title":"SummarizeRequest"},"src__routes__v1__url__schemas__ClassifyRequest":{"properties":{"url":{"type":"string","title":"Url"},"categories":{"items":{"type":"string"},"type":"array","title":"Categories"}},"type":"object","required":["url","categories"],"title":"ClassifyRequest"},"src__routes__v1__url__schemas__SummarizeRequest":{"properties":{"url":{"type":"string","title":"URL","description":"The URL string for the summarize","examples":["https://en.wikipedia.org/wiki/Dinosaur"]}},"type":"object","required":["url"],"title":"SummarizeRequest"}}}}
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "FastAPI",
+        "version": "0.1.0"
+    },
+    "servers": [
+        {
+            "url": "http://sandbox.mintlify.com"
+        }
+    ],
+    "paths": {
+        "/v1/text/summarize": {
+            "post": {
+                "tags": [
+                    "Text"
+                ],
+                "summary": "Summarize",
+                "operationId": "summarize_v1_text_summarize_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/src__routes__v1__text__schemas__SummarizeRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/text/paraphrase": {
+            "post": {
+                "tags": [
+                    "Text"
+                ],
+                "summary": "Paraphrase",
+                "operationId": "paraphrase_v1_text_paraphrase_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ParaphraseRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/text/correct": {
+            "post": {
+                "tags": [
+                    "Text"
+                ],
+                "summary": "Correct",
+                "operationId": "correct_v1_text_correct_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CorrectRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/text/classify": {
+            "post": {
+                "tags": [
+                    "Text"
+                ],
+                "summary": "Classify",
+                "operationId": "classify_v1_text_classify_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/src__routes__v1__text__schemas__ClassifyRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/url/summarize": {
+            "post": {
+                "tags": [
+                    "URL"
+                ],
+                "summary": "Summarize",
+                "operationId": "summarize_v1_url_summarize_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/src__routes__v1__url__schemas__SummarizeRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SummarizeResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/url/classify": {
+            "post": {
+                "tags": [
+                    "URL"
+                ],
+                "summary": "Classify",
+                "operationId": "classify_v1_url_classify_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/src__routes__v1__url__schemas__ClassifyRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/pdf/summarize": {
+            "post": {
+                "tags": [
+                    "PDF"
+                ],
+                "summary": "Summarize PDF",
+                "operationId": "summarize_v1_pdf_summarize_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/src__routes__v1__pdf__schemas__SummarizeRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/": {
+            "get": {
+                "summary": "Root",
+                "operationId": "root__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CorrectRequest": {
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "title": "Text"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "text"
+                ],
+                "title": "CorrectRequest"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "ParaphraseRequest": {
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "title": "Text"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "text"
+                ],
+                "title": "ParaphraseRequest"
+            },
+            "SummarizeResponse": {
+                "properties": {
+                    "output": {
+                        "type": "string",
+                        "title": "Output"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "output"
+                ],
+                "title": "SummarizeResponse"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            },
+            "src__routes__v1__pdf__schemas__SummarizeRequest": {
+                "properties": {
+                    "file_url": {
+                        "type": "string",
+                        "title": "File Url"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "file_url"
+                ],
+                "title": "SummarizeRequest"
+            },
+            "src__routes__v1__text__schemas__ClassifyRequest": {
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "title": "Text"
+                    },
+                    "categories": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Categories"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "text",
+                    "categories"
+                ],
+                "title": "ClassifyRequest"
+            },
+            "src__routes__v1__text__schemas__SummarizeRequest": {
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "title": "Text"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "text"
+                ],
+                "title": "SummarizeRequest"
+            },
+            "src__routes__v1__url__schemas__ClassifyRequest": {
+                "properties": {
+                    "url": {
+                        "type": "string",
+                        "title": "Url"
+                    },
+                    "categories": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Categories"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "url",
+                    "categories"
+                ],
+                "title": "ClassifyRequest"
+            },
+            "src__routes__v1__url__schemas__SummarizeRequest": {
+                "properties": {
+                    "url": {
+                        "type": "string",
+                        "title": "URL",
+                        "description": "The URL string for the summarize",
+                        "examples": [
+                            "https://en.wikipedia.org/wiki/Dinosaur"
+                        ]
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "url"
+                ],
+                "title": "SummarizeRequest"
+            }
+        }
+    }
+}
