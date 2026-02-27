@@ -4,6 +4,11 @@
     "title": "Prehash",
     "version": "0.1.0"
   },
+  "servers": [
+      {
+          "url": "http://sandbox.mintlify.com"
+      }
+  ],
   "paths": {
     "/v1/customers": {
       "post": {
