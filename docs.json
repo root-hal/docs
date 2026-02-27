@@ -49,25 +49,7 @@
       },
       {
         "tab": "API reference",
-        "groups": [
-          {
-            "group": "API Reference",
-            "pages": [
-              "api-reference/introduction",
-              "api-reference/rate-limit",
-              "api-reference/errors"
-            ]
-          },
-          {
-            "group": "Text",
-            "pages": [
-              "/openapi.json POST /v1/text/summarize",
-              "/openapi.json POST /v1/text/paraphrase", 
-              "/openapi.json POST /v1/text/correct",
-              "/openapi.json POST /v1/text/classify"
-            ]
-          }
-        ]
+        "openapi": "openapi.json"
       }
     ],
     "global": {
