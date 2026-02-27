@@ -1,625 +1,2115 @@
 {
-    "openapi": "3.1.0",
-    "info": {
-        "title": "Loor AI API",
-        "version": "1.0.0"
-    },
-    "servers": [
-      {
-        "url": "http://sandbox.mintlify.com"
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Prehash",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/v1/customers": {
+      "post": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Create Customer",
+        "operationId": "create_customer_v1_customers_post",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "proj_123",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
       }
-    ],
-    "paths": {
-        "/v1/text/summarize": {
-            "post": {
-                "tags": [
-                    "Text"
-                ],
-                "summary": "Summarize Text",
-                "description": "Summarize the provided text content.\n\nTakes text input and returns a concise summary using the configured\nsummarization model.\n\n- **text**: The text content to summarize",
-                "operationId": "summarize_v1_text_summarize_post",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/src__routes__v1__text__schemas__SummarizeRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/src__routes__v1__text__schemas__SummarizeResponse"
-                                }
-                            }
-                        }
-                    },
-                    "4XX": {
-                        "description": "Error occurred while processing the request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponse"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/text/paraphrase": {
-            "post": {
-                "tags": [
-                    "Text"
-                ],
-                "summary": "Paraphrase Text",
-                "description": "Paraphrase the provided text content.\n\nTakes text input and returns a reworded version that maintains the\noriginal meaning while using different words and sentence structure.\n\n- **text**: The text content to paraphrase\n- **tone**: The desired tone for the paraphrased text",
-                "operationId": "paraphrase_v1_text_paraphrase_post",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ParaphraseRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ParaphraseResponse"
-                                }
-                            }
-                        }
-                    },
-                    "4XX": {
-                        "description": "Error occurred while processing the request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponse"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/text/correct": {
-            "post": {
-                "tags": [
-                    "Text"
-                ],
-                "summary": "Correct Text",
-                "description": "Correct grammar and spelling errors in text.\n\nTakes text input and returns a corrected version with fixed grammar,\nspelling, and punctuation errors.\n\n- **text**: The text content to be corrected",
-                "operationId": "correct_v1_text_correct_post",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/CorrectRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/CorrectResponse"
-                                }
-                            }
-                        }
-                    },
-                    "4XX": {
-                        "description": "Error occurred while processing the request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponse"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/text/classify": {
-            "post": {
-                "tags": [
-                    "Text"
-                ],
-                "summary": "Classify Text",
-                "description": "Classify text into predefined categories.\n\nAnalyzes the provided text and assigns it to the most appropriate\ncategory with a confidence score.\n\n- **text**: The text content to classify\n- **categories**: List of possible categories to classify into",
-                "operationId": "classify_v1_text_classify_post",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/src__routes__v1__text__schemas__ClassifyRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/src__routes__v1__text__schemas__ClassifyResponse"
-                                }
-                            }
-                        }
-                    },
-                    "4XX": {
-                        "description": "Error occurred while processing the request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponse"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/url/summarize": {
-            "post": {
-                "tags": [
-                    "URL"
-                ],
-                "summary": "Summarize URL",
-                "operationId": "summarize_v1_url_summarize_post",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/src__routes__v1__url__schemas__SummarizeRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/src__routes__v1__url__schemas__SummarizeResponse"
-                                }
-                            }
-                        }
-                    },
-                    "4XX": {
-                        "description": "Error occurred while processing the request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponse"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/url/classify": {
-            "post": {
-                "tags": [
-                    "URL"
-                ],
-                "summary": "Classify URL",
-                "operationId": "classify_v1_url_classify_post",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/src__routes__v1__url__schemas__ClassifyRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/src__routes__v1__url__schemas__ClassifyResponse"
-                                }
-                            }
-                        }
-                    },
-                    "4XX": {
-                        "description": "Error occurred while processing the request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponse"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/pdf/summarize": {
-            "post": {
-                "tags": [
-                    "PDF"
-                ],
-                "summary": "Summarize PDF",
-                "operationId": "summarize_v1_pdf_summarize_post",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/src__routes__v1__pdf__schemas__SummarizeRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "4XX": {
-                        "description": "Error occurred while processing the request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponse"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/": {
-            "get": {
-                "summary": "Root",
-                "operationId": "root__get",
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "4XX": {
-                        "description": "Error occurred while processing the request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponse"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
     },
-    "components": {
-        "schemas": {
-            "CorrectRequest": {
-                "properties": {
-                    "text": {
-                        "type": "string",
-                        "title": "Text",
-                        "description": "The text content to be corrected",
-                        "example": "i cant beleive its raning again today, my picknick plans are ruined agian!"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "text"
-                ],
-                "title": "CorrectRequest"
-            },
-            "CorrectResponse": {
-                "properties": {
-                    "correction": {
-                        "type": "string",
-                        "title": "Correction",
-                        "description": "The corrected text with grammar and spelling fixes",
-                        "example": "..."
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "correction"
-                ],
-                "title": "CorrectResponse"
-            },
-            "ErrorResponse": {
-                "properties": {
-                    "type": {
-                        "type": "string",
-                        "title": "Type"
-                    },
-                    "status": {
-                        "type": "integer",
-                        "title": "Status"
-                    },
-                    "title": {
-                        "type": "string",
-                        "title": "Title"
-                    },
-                    "detail": {
-                        "type": "string",
-                        "title": "Detail"
-                    },
-                    "instance": {
-                        "type": "string",
-                        "title": "Instance"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "type",
-                    "status",
-                    "title",
-                    "detail",
-                    "instance"
-                ],
-                "title": "ErrorResponse",
-                "description": "RFC 7807 Problem Details error response schema",
-                "example": {
-                    "detail": "Access forbidden or source unavailable.",
-                    "instance": "8428a19f-401e-47bc-b3f6-85f2bc3bed17",
-                    "status": 403,
-                    "title": "Source Not Available",
-                    "type": "https://loor.ai/v1/url/summarize"
-                }
-            },
-            "ParaphraseRequest": {
-                "properties": {
-                    "text": {
-                        "type": "string",
-                        "title": "Text",
-                        "description": "The text content to be paraphrased",
-                        "example": "My grandmother makes the most delicious cookies in the entire universe and everyone agrees!"
-                    },
-                    "tone": {
-                        "type": "string",
-                        "title": "Tone",
-                        "description": "The desired tone for the paraphrased text (e.g., formal, casual, professional)",
-                        "example": "pirate"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "text",
-                    "tone"
-                ],
-                "title": "ParaphraseRequest"
-            },
-            "ParaphraseResponse": {
-                "properties": {
-                    "paraphrase": {
-                        "type": "string",
-                        "title": "Paraphrase",
-                        "description": "The generated paraphrased text",
-                        "example": "Ahoy matey! That swift amber fox be leapin' over the sleepy hound whilst tossin' blazin' sticks in the air!"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "paraphrase"
-                ],
-                "title": "ParaphraseResponse"
-            },
-            "src__routes__v1__pdf__schemas__SummarizeRequest": {
-                "properties": {
-                    "file_url": {
-                        "type": "string",
-                        "title": "File Url"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "file_url"
-                ],
-                "title": "SummarizeRequest"
-            },
-            "src__routes__v1__text__schemas__ClassifyRequest": {
-                "properties": {
-                    "text": {
-                        "type": "string",
-                        "title": "Text",
-                        "description": "The text content to be classified",
-                        "example": "This product exceeded my expectations! The quality is excellent and it arrived faster than expected. Highly recommend!"
-                    },
-                    "categories": {
-                        "items": {
-                            "type": "string"
-                        },
-                        "type": "array",
-                        "title": "Categories",
-                        "description": "List of categories to classify the text into",
-                        "example": [
-                            "positive",
-                            "negative",
-                            "neutral"
-                        ]
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "text",
-                    "categories"
-                ],
-                "title": "ClassifyRequest"
-            },
-            "src__routes__v1__text__schemas__ClassifyResponse": {
-                "properties": {
-                    "category": {
-                        "type": "string",
-                        "title": "Category",
-                        "description": "The predicted category",
-                        "example": "positive"
-                    },
-                    "confidence": {
-                        "type": "number",
-                        "title": "Confidence",
-                        "description": "Confidence score for the prediction",
-                        "example": 0.97
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "category",
-                    "confidence"
-                ],
-                "title": "ClassifyResponse"
-            },
-            "src__routes__v1__text__schemas__SummarizeRequest": {
-                "properties": {
-                    "text": {
-                        "type": "string",
-                        "title": "Text",
-                        "description": "The text content to be summarized",
-                        "example": "Artificial intelligence has made remarkable progress in recent years, transforming industries from healthcare to finance. Machine learning algorithms can now analyze vast amounts of data to identify patterns and make predictions with unprecedented accuracy. However, as AI systems become more powerful, concerns about ethics, bias, and transparency have also grown. Researchers and policymakers are working together to develop frameworks that ensure AI is developed responsibly and benefits society as a whole."
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "text"
-                ],
-                "title": "SummarizeRequest"
-            },
-            "src__routes__v1__text__schemas__SummarizeResponse": {
-                "properties": {
-                    "summary": {
-                        "type": "string",
-                        "title": "Summary",
-                        "description": "The generated summary",
-                        "example": "AI has advanced significantly, impacting multiple industries through improved data analysis and predictions, while raising important concerns about ethics and responsible development."
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "summary"
-                ],
-                "title": "SummarizeResponse"
-            },
-            "src__routes__v1__url__schemas__ClassifyRequest": {
-                "properties": {
-                    "url": {
-                        "type": "string",
-                        "title": "URL",
-                        "description": "The URL to classify content from",
-                        "examples": [
-                            "https://techcrunch.com/2024/01/15/ai-startup-news"
-                        ]
-                    },
-                    "categories": {
-                        "items": {
-                            "type": "string"
-                        },
-                        "type": "array",
-                        "title": "Categories",
-                        "description": "List of possible categories to classify into",
-                        "examples": [
-                            [
-                                "Technology",
-                                "Business",
-                                "Science",
-                                "Sports"
-                            ]
-                        ]
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "url",
-                    "categories"
-                ],
-                "title": "ClassifyRequest"
-            },
-            "src__routes__v1__url__schemas__ClassifyResponse": {
-                "properties": {
-                    "category": {
-                        "type": "string",
-                        "title": "Category",
-                        "description": "The predicted category for the content",
-                        "examples": [
-                            "Technology"
-                        ]
-                    },
-                    "confidence": {
-                        "type": "number",
-                        "title": "Confidence",
-                        "description": "Confidence score for the classification (0.0 to 1.0)",
-                        "examples": [
-                            0.92
-                        ]
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "category",
-                    "confidence"
-                ],
-                "title": "ClassifyResponse"
-            },
-            "src__routes__v1__url__schemas__SummarizeRequest": {
-                "properties": {
-                    "url": {
-                        "type": "string",
-                        "title": "URL",
-                        "description": "The URL string for the summarize",
-                        "examples": [
-                            "https://en.wikipedia.org/wiki/Dinosaur"
-                        ]
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "url"
-                ],
-                "title": "SummarizeRequest"
-            },
-            "src__routes__v1__url__schemas__SummarizeResponse": {
-                "properties": {
-                    "output": {
-                        "type": "string",
-                        "title": "Output"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "output"
-                ],
-                "title": "SummarizeResponse"
+    "/v1/customers/{customer_id}": {
+      "get": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Get Customer",
+        "operationId": "get_customer_v1_customers__customer_id__get",
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Customer Id"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
         }
+      },
+      "patch": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Update Customer",
+        "operationId": "update_customer_v1_customers__customer_id__patch",
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Customer Id"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "proj_123",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/subscriptions": {
+      "post": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "Create Subscription",
+        "operationId": "create_subscription_v1_subscriptions_post",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "proj_123",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriptionCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/subscriptions/{subscription_id}": {
+      "get": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "Get Subscription",
+        "operationId": "get_subscription_v1_subscriptions__subscription_id__get",
+        "parameters": [
+          {
+            "name": "subscription_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Subscription Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/projects": {
+      "post": {
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Create Project",
+        "operationId": "create_project_v1_projects_post",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "org_123",
+              "title": "Organization Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Projects"
+        ],
+        "summary": "List Projects",
+        "operationId": "list_projects_v1_projects_get",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "org_123",
+              "title": "Organization Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/projects/{project_id}": {
+      "get": {
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Get Project",
+        "operationId": "get_project_v1_projects__project_id__get",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Update Project",
+        "operationId": "update_project_v1_projects__project_id__patch",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "organization_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "org_123",
+              "title": "Organization Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Delete Project",
+        "operationId": "delete_project_v1_projects__project_id__delete",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "organization_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "org_123",
+              "title": "Organization Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pricebooks": {
+      "post": {
+        "tags": [
+          "Pricebooks"
+        ],
+        "summary": "Create Pricebook",
+        "operationId": "create_pricebook_v1_pricebooks_post",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "proj_123",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PricebookCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pricebooks/{pricebook_id}": {
+      "get": {
+        "tags": [
+          "Pricebooks"
+        ],
+        "summary": "Get Pricebook",
+        "operationId": "get_pricebook_v1_pricebooks__pricebook_id__get",
+        "parameters": [
+          {
+            "name": "pricebook_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Pricebook Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Pricebooks"
+        ],
+        "summary": "Update Pricebook",
+        "operationId": "update_pricebook_v1_pricebooks__pricebook_id__patch",
+        "parameters": [
+          {
+            "name": "pricebook_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Pricebook Id"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "proj_123",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PricebookUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/products": {
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Create Product",
+        "operationId": "create_product_v1_products_post",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "proj_123",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/products/{product_id}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Get Product",
+        "operationId": "get_product_v1_products__product_id__get",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Product Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Update Product",
+        "operationId": "update_product_v1_products__product_id__patch",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Product Id"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "proj_123",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dimensions": {
+      "post": {
+        "tags": [
+          "Dimensions"
+        ],
+        "summary": "Create Dimension",
+        "operationId": "create_dimension_v1_dimensions_post",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "proj_123",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DimensionCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dimensions/{dimension_id}": {
+      "get": {
+        "tags": [
+          "Dimensions"
+        ],
+        "summary": "Get Dimension",
+        "operationId": "get_dimension_v1_dimensions__dimension_id__get",
+        "parameters": [
+          {
+            "name": "dimension_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Dimension Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DimensionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Dimensions"
+        ],
+        "summary": "Update Dimension",
+        "operationId": "update_dimension_v1_dimensions__dimension_id__patch",
+        "parameters": [
+          {
+            "name": "dimension_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Dimension Id"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "proj_123",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DimensionUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/meters": {
+      "post": {
+        "tags": [
+          "Meters"
+        ],
+        "summary": "Create Meter",
+        "operationId": "create_meter_v1_meters_post",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "proj_123",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MeterCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/meters/{meter_id}": {
+      "get": {
+        "tags": [
+          "Meters"
+        ],
+        "summary": "Get Project",
+        "operationId": "get_project_v1_meters__meter_id__get",
+        "parameters": [
+          {
+            "name": "meter_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Meter Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeterResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Meters"
+        ],
+        "summary": "Update Meter",
+        "operationId": "update_meter_v1_meters__meter_id__patch",
+        "parameters": [
+          {
+            "name": "meter_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Meter Id"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "proj_123",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MeterUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/events": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Ingest Event",
+        "operationId": "ingest_event_v1_events_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventIngest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Root",
+        "description": "Root endpoint for basic health check and service info.",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          }
+        }
+      }
     }
+  },
+  "components": {
+    "schemas": {
+      "CustomerCreate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 256,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name",
+            "description": "Customer name",
+            "examples": [
+              "John Doe"
+            ]
+          },
+          "external_ids": {
+            "items": {
+              "$ref": "#/components/schemas/ExternalID"
+            },
+            "type": "array",
+            "title": "External Ids",
+            "description": "List of external system identifiers"
+          }
+        },
+        "type": "object",
+        "title": "CustomerCreate"
+      },
+      "CustomerResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "external_ids": {
+            "items": {
+              "$ref": "#/components/schemas/ExternalID"
+            },
+            "type": "array",
+            "title": "External Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "external_ids"
+        ],
+        "title": "CustomerResponse"
+      },
+      "CustomerUpdate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 256,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name",
+            "description": "Customer name",
+            "examples": [
+              "John Doe"
+            ]
+          },
+          "external_ids": {
+            "items": {
+              "$ref": "#/components/schemas/ExternalID"
+            },
+            "type": "array",
+            "title": "External Ids",
+            "description": "List of external system identifiers"
+          }
+        },
+        "type": "object",
+        "title": "CustomerUpdate"
+      },
+      "DimensionCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1,
+            "title": "Name",
+            "description": "Dimension name",
+            "examples": [
+              "Region"
+            ]
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Key",
+            "description": "Dimension key",
+            "examples": [
+              "region"
+            ]
+          },
+          "values": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Values",
+            "description": "List of Dimension values"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "key"
+        ],
+        "title": "DimensionCreate"
+      },
+      "DimensionResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "values": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Values",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "key"
+        ],
+        "title": "DimensionResponse"
+      },
+      "DimensionUpdate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 256,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name",
+            "description": "Dimension name",
+            "examples": [
+              "Region"
+            ]
+          }
+        },
+        "type": "object",
+        "title": "DimensionUpdate"
+      },
+      "EventIngest": {
+        "properties": {
+          "transaction_id": {
+            "type": "string",
+            "title": "Transaction Id"
+          },
+          "customer_id": {
+            "type": "string",
+            "title": "Customer Id"
+          },
+          "event_type": {
+            "type": "string",
+            "title": "Event Type"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp"
+          },
+          "properties": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Properties"
+          }
+        },
+        "type": "object",
+        "required": [
+          "transaction_id",
+          "customer_id",
+          "event_type",
+          "timestamp",
+          "properties"
+        ],
+        "title": "EventIngest"
+      },
+      "ExternalID": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "description": "The system source (e.g., 'stripe')",
+            "examples": [
+              "stripe"
+            ]
+          },
+          "value": {
+            "type": "string",
+            "title": "Value",
+            "description": "The unique identifier from that system",
+            "examples": [
+              "cus_123"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "value"
+        ],
+        "title": "ExternalID"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "MeterAggregation": {
+        "properties": {
+          "method": {
+            "type": "string",
+            "enum": [
+              "sum",
+              "count",
+              "max",
+              "unique"
+            ],
+            "title": "Method",
+            "description": "The aggregation operation to perform"
+          },
+          "field": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Field",
+            "description": "The property in the event payload to aggregate"
+          }
+        },
+        "type": "object",
+        "required": [
+          "method"
+        ],
+        "title": "MeterAggregation"
+      },
+      "MeterCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1,
+            "title": "Name",
+            "description": "Meter name",
+            "examples": [
+              "Input"
+            ]
+          },
+          "event_type": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Event Type",
+            "description": "Event type",
+            "examples": [
+              "llm_inference"
+            ]
+          },
+          "aggregation": {
+            "$ref": "#/components/schemas/MeterAggregation"
+          },
+          "filters": {
+            "items": {
+              "$ref": "#/components/schemas/MeterFilter"
+            },
+            "type": "array",
+            "title": "Filters"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "event_type",
+          "aggregation"
+        ],
+        "title": "MeterCreate"
+      },
+      "MeterFilter": {
+        "properties": {
+          "field": {
+            "type": "string",
+            "title": "Field",
+            "description": "The event property to filter on"
+          },
+          "operator": {
+            "type": "string",
+            "enum": [
+              "in",
+              "eq",
+              "gt",
+              "lt",
+              "contains"
+            ],
+            "title": "Operator"
+          },
+          "value": {
+            "title": "Value",
+            "description": "The value to compare against"
+          }
+        },
+        "type": "object",
+        "required": [
+          "field",
+          "operator",
+          "value"
+        ],
+        "title": "MeterFilter"
+      },
+      "MeterResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "aggregation": {
+            "$ref": "#/components/schemas/MeterAggregation"
+          },
+          "filters": {
+            "items": {
+              "$ref": "#/components/schemas/MeterFilter"
+            },
+            "type": "array",
+            "title": "Filters"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "aggregation",
+          "filters"
+        ],
+        "title": "MeterResponse"
+      },
+      "MeterUpdate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 256,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name",
+            "description": "Meter name",
+            "examples": [
+              "Input"
+            ]
+          }
+        },
+        "type": "object",
+        "title": "MeterUpdate"
+      },
+      "PriceCreate": {
+        "properties": {
+          "product_id": {
+            "type": "string",
+            "title": "Product Id"
+          },
+          "meter_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meter Id"
+          },
+          "dimension_value_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Dimension Value Ids"
+          },
+          "pricing_mode": {
+            "type": "string",
+            "enum": [
+              "fixed",
+              "tiered"
+            ],
+            "title": "Pricing Mode",
+            "default": "fixed"
+          },
+          "rate": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rate"
+          },
+          "unit_mode": {
+            "type": "string",
+            "title": "Unit Mode",
+            "default": "unit"
+          },
+          "package_quantity": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Package Quantity"
+          },
+          "tier_mode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tier Mode"
+          },
+          "tiers": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tiers"
+          }
+        },
+        "type": "object",
+        "required": [
+          "product_id"
+        ],
+        "title": "PriceCreate"
+      },
+      "PricebookCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Name",
+            "description": "Pricebook name",
+            "examples": [
+              "Standard Pricebook"
+            ]
+          },
+          "currency": {
+            "type": "string",
+            "maxLength": 3,
+            "minLength": 3,
+            "title": "Currency",
+            "description": "ISO 4217 currency code",
+            "examples": [
+              "USD",
+              "EUR"
+            ]
+          },
+          "prices": {
+            "items": {
+              "$ref": "#/components/schemas/PriceCreate"
+            },
+            "type": "array",
+            "title": "Prices"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "currency"
+        ],
+        "title": "PricebookCreate"
+      },
+      "PricebookUpdate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 128,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name",
+            "description": "Pricebook name",
+            "examples": [
+              "Standard Pricebook"
+            ]
+          }
+        },
+        "type": "object",
+        "title": "PricebookUpdate"
+      },
+      "ProductCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1,
+            "title": "Name",
+            "description": "Product name",
+            "examples": [
+              "Gemini 3"
+            ]
+          },
+          "category": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1,
+            "title": "Category",
+            "description": "Product category",
+            "examples": [
+              "usage"
+            ]
+          },
+          "meter_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Meter Ids",
+            "description": "List of Meter IDs to associate with this product"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "category"
+        ],
+        "title": "ProductCreate"
+      },
+      "ProductResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "category": {
+            "type": "string",
+            "title": "Category"
+          },
+          "meters": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/MeterResponse"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meters"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "category"
+        ],
+        "title": "ProductResponse"
+      },
+      "ProductUpdate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 256,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name",
+            "description": "Product name",
+            "examples": [
+              "Gemini 3"
+            ]
+          }
+        },
+        "type": "object",
+        "title": "ProductUpdate"
+      },
+      "ProjectCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1,
+            "title": "Name",
+            "description": "Human-readable project name",
+            "examples": [
+              "Acme API"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "ProjectCreate"
+      },
+      "ProjectResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "status"
+        ],
+        "title": "ProjectResponse"
+      },
+      "ProjectUpdate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 256,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name",
+            "description": "Human-readable project name",
+            "examples": [
+              "Acme API"
+            ]
+          }
+        },
+        "type": "object",
+        "title": "ProjectUpdate"
+      },
+      "SubscriptionCreate": {
+        "properties": {
+          "contract_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contract Id"
+          },
+          "customer_id": {
+            "type": "string",
+            "title": "Customer Id"
+          },
+          "pricebook_id": {
+            "type": "string",
+            "title": "Pricebook Id"
+          },
+          "starts_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Starts At"
+          },
+          "ends_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ends At"
+          },
+          "current_period_start": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Period Start"
+          },
+          "current_period_end": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Period End"
+          },
+          "cancel_at_period_end": {
+            "type": "boolean",
+            "title": "Cancel At Period End",
+            "default": false
+          },
+          "billing_frequency": {
+            "type": "string",
+            "title": "Billing Frequency"
+          },
+          "billing_threshold": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Billing Threshold"
+          },
+          "low_balance_threshold": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Low Balance Threshold"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/SubscriptionItemCreate"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "customer_id",
+          "pricebook_id",
+          "starts_at",
+          "billing_frequency"
+        ],
+        "title": "SubscriptionCreate"
+      },
+      "SubscriptionItemCreate": {
+        "properties": {
+          "price_id": {
+            "type": "string",
+            "title": "Price Id"
+          },
+          "billing_scheme": {
+            "type": "string",
+            "title": "Billing Scheme"
+          },
+          "quantity": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quantity"
+          }
+        },
+        "type": "object",
+        "required": [
+          "price_id",
+          "billing_scheme"
+        ],
+        "title": "SubscriptionItemCreate"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
 }
